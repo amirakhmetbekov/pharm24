@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pharm24 — home medicine cabinet</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">Pharm<span>24</span></div>
+  <div class="user-box" id="user-box" hidden>
+    <span id="user-email"></span>
+    <button id="logout-btn">Log out</button>
+  </div>
+</header>
+
+<!-- ============ AUTH ============ -->
+<section id="auth-section">
+  <div class="auth-card">
+    <h1 id="auth-title">Log in</h1>
+    <p class="lead">Track which medications you have at home, and which ones you need to buy.</p>
+
+    <form id="auth-form">
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" required autocomplete="current-password" minlength="6">
+      </div>
+      <button type="submit" class="btn-primary" id="auth-submit-btn">Log in</button>
+      <div class="auth-error" id="auth-error"></div>
+    </form>
+
+    <div class="auth-toggle">
+      <span id="auth-toggle-text">No account yet?</span>
+      <button type="button" id="auth-toggle-btn">Sign up</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APP ============ -->
+<section id="app-section" hidden>
+  <div class="intro">
+    <h1>Your medicine cabinet</h1>
+    <p>Add medications and mark whether they're in stock.</p>
+  </div>
+
+  <div class="add-card">
+    <h2>Add a medication</h2>
+    <form id="add-form" class="add-grid">
+      <div class="field">
+        <label for="m-name">Name</label>
+        <input type="text" id="m-name" placeholder="e.g. Ibuprofen" required>
+      </div>
+      <div class="field">
+        <label for="m-category">Category</label>
+        <select id="m-category">
+          <option value="pain">Pain relief</option>
+          <option value="cold">Cold & flu</option>
+          <option value="antibiotic">Antibiotic</option>
+          <option value="vitamin">Vitamins</option>
+          <option value="first_aid">First aid / bandages</option>
+          <option value="chronic">Chronic / daily use</option>
+          <option value="other" selected>Other</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="m-qty">Qty</label>
+        <input type="number" id="m-qty" min="0" step="0.5" placeholder="0">
+      </div>
+      <div class="field">
+        <label for="m-unit">Unit</label>
+        <input type="text" id="m-unit" placeholder="pcs" value="pcs">
+      </div>
+      <div class="field">
+        <label for="m-expiry">Expires</label>
+        <input type="date" id="m-expiry">
+      </div>
+      <button type="submit">Add</button>
+    </form>
+    <div class="notice-bar" id="add-notice"></div>
+  </div>
+
+  <div class="board">
+    <div class="column have">
+      <h2>In stock <span class="count-pill" id="have-count"></span></h2>
+      <div id="have-list"></div>
+    </div>
+    <div class="column need">
+      <h2>Need to buy <span class="count-pill" id="need-count"></span></h2>
+      <div id="need-list"></div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
