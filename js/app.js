@@ -6,7 +6,7 @@
 const SUPABASE_URL = "https://smqfjgsdnqhusxvdgbia.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_hJg3cVmf_gs84W6sV0xF9Q_bk5mo0e4";
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // =====================================================================
 // DOM elements
@@ -67,12 +67,12 @@ authForm.addEventListener("submit", async (e) => {
 
   try {
     if (isRegisterMode) {
-      const { error } = await supabase.auth.signUp({ email, password });
+      const { error } = await supabaseClient.auth.signUp({ email, password });
       if (error) throw error;
       authError.style.color = "#1f4b43";
       authError.textContent = "Account created! Confirm your email if required, then log in.";
     } else {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
+      const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) throw error;
     }
   } catch (err) {
@@ -84,7 +84,7 @@ authForm.addEventListener("submit", async (e) => {
 });
 
 logoutBtn.addEventListener("click", async () => {
-  await supabase.auth.signOut();
+  await supabaseClient.auth.signOut();
 });
 
 function translateAuthError(msg) {
@@ -95,7 +95,7 @@ function translateAuthError(msg) {
 }
 
 // Watch auth session state
-supabase.auth.onAuthStateChange((_event, session) => {
+supabaseClient.auth.onAuthStateChange((_event, session) => {
   if (session) {
     showApp(session.user);
   } else {
@@ -125,7 +125,7 @@ addForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   addNotice.textContent = "";
 
-  const { data: { user } } = await supabase.auth.getUser();
+  const { data: { user } } = await supabaseClient.auth.getUser();
   if (!user) return;
 
   const name = document.getElementById("m-name").value.trim();
@@ -139,7 +139,7 @@ addForm.addEventListener("submit", async (e) => {
   // if quantity is 0 or not provided, place it straight into "need to buy"
   const inStock = quantity && Number(quantity) > 0;
 
-  const { error } = await supabase.from("medications").insert({
+  const { error } = await supabaseClient.from("medications").insert({
     user_id: user.id,
     name,
     category,
@@ -163,7 +163,7 @@ addForm.addEventListener("submit", async (e) => {
 });
 
 async function loadMedications() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from("medications")
     .select("*")
     .order("created_at", { ascending: false });
@@ -226,7 +226,7 @@ function medCardHTML(m, isInStock) {
 }
 
 async function toggleStock(id, nextValue) {
-  const { error } = await supabase
+  const { error } = await supabaseClient
     .from("medications")
     .update({ in_stock: nextValue })
     .eq("id", id);
@@ -235,7 +235,7 @@ async function toggleStock(id, nextValue) {
 }
 
 async function deleteMedication(id) {
-  const { error } = await supabase.from("medications").delete().eq("id", id);
+  const { error } = await supabaseClient.from("medications").delete().eq("id", id);
   if (error) console.error(error);
   loadMedications();
 }
