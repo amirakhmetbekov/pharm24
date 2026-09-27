@@ -5,7 +5,7 @@ which medications you **have in stock** and which ones you **need to buy**,
 along with quantity, category, and expiry date.
 
 🔗 **Live app:** _add link after deploying to Netlify_
-🎥 **Demo video (YouTube, unlisted):** _add link_
+🎥 **Demo video (YouTube, unlisted):** https://youtu.be/zawvKJpK-ac?si=bGMhoPgXHLoa9d54
 
 ## Features
 
