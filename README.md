@@ -4,7 +4,7 @@ Pharm24 is a simple web app for tracking a home medicine cabinet. It shows
 which medications you **have in stock** and which ones you **need to buy**,
 along with quantity, category, and expiry date.
 
-🔗 **Live app:** _add link after deploying to Netlify_
+🔗 **Live app:** https://pharm24.netlify.app/
 🎥 **Demo video (YouTube, unlisted):** https://youtu.be/zawvKJpK-ac?si=bGMhoPgXHLoa9d54
 
 ## Features
